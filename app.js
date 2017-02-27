@@ -27,6 +27,7 @@ router.use(function(req, res, next)
  console.log('Something has happened.');
  next(); // make sure we go to the next routes and don't stop here
 });
+
 app.route('/API/MathManager/addTwoNumbers')
     .post(function(req, res) {
       var number1 = req.body.number1;
@@ -50,6 +51,7 @@ app.route('/API/MathManager/calculateDifferencesBetweenTwoNumbers') .post(functi
   var number2 = req.body.number2;
   res.json({ result: Math.abs(number1 - number2) });
 });
+
 router.get('api/', function(req, res) {
   res.json({ result: 'Route: \'/\' Math Manager Version 1' });
 });
