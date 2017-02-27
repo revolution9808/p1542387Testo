@@ -6,14 +6,9 @@
     "start": "node app.js"
   },
   "dependencies": {
-    "body-parser": "^1.16.1",
-    "cfenv": "1.0.x",
-    "cors": "^2.8.1",
     "express": "4.13.x",
-    "firebase": "^3.6.10",
-    "https": "^1.0.0",
-    "moment": "^2.17.1",
-    "request": "^2.79.0",
+    "moment": "2.x.x",
+    "cfenv": "1.0.3",
     "request": "2.x.x",
     "https": "1.0.0",
     "cron": "^1.1.0",
@@ -39,8 +34,11 @@
     "underscore": "1.8.3",
     "validator": "5.1.0"
   },
-  "repository": {},
+  "repository": {
+
+  },
   "engines": {
     "node": "4.x"
   }
 }
+
