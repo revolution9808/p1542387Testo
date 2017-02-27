@@ -1,28 +1,60 @@
-/*eslint-env node*/
+//app.js
+//BASE SETUP
+//
 
-//------------------------------------------------------------------------------
-// node.js starter application for Bluemix
-//------------------------------------------------------------------------------
-
-// This application uses express as its web server
-// for more info, see: http://expressjs.com
+//call the packages we need
 var express = require('express');
-
-// cfenv provides access to your Cloud Foundry environment
-// for more info, see: https://www.npmjs.com/package/cfenv
-var cfenv = require('cfenv');
-
-// create a new express server
+var cors = require('cors');
 var app = express();
 
-// serve the files out of ./public as our main files
-app.use(express.static(__dirname + '/public'));
+var bodyParser = require('body-parser');
+var firebase = require('firebase');
+var moment = require('moment');
+var https = require('https');
+var request = request('request');
 
-// get the app environment from Cloud Foundry
-var appEnv = cfenv.getAppEnv();
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.use(cors());
+var port = process.env.VCAP_APP_PORT || 3000;
 
-// start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function() {
-  // print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
+//ROUTES FOR OUR API
+//
+var router = express.Router();
+// middleware to use for all requests
+router.use(function(req, res, next)
+{ // do logging
+ console.log('Something has happened.');
+ next(); // make sure we go to the next routes and don't stop here
 });
+app.route('/API/MathManager/addTwoNumbers')
+    .post(function(req, res) {
+      var number1 = req.body.number1;
+      var number2 = req.body.number2;
+      res.json({ result: (number1 + number2  ) });
+    });
+app.route('/API/MathManager/divideTwoNumbers') .post(function(req, res)
+{
+  var number1 = req.body.number1;
+  var number2 = req.body.number2;
+  res.json({ result: (number1 / number2) });
+});
+app.route('/API/MathManager/multiplyTwoNumbers')
+    .post(function(req, res) {
+        var number1 = req.body.number1;
+        var number2 = req.body.number2;
+        res.json({ result: (number1 * number2) });
+    });
+app.route('/API/MathManager/calculateDifferencesBetweenTwoNumbers') .post(function(req, res) {
+  var number1 = req.body.number1;
+  var number2 = req.body.number2;
+  res.json({ result: Math.abs(number1 - number2) });
+});
+router.get('api/', function(req, res) {
+  res.json({ result: 'Route: \'/\' Math Manager Version 1' });
+});
+
+//START THE SERVER
+//
+app.listen(port);
+console.log('Magic happens on port' + port);

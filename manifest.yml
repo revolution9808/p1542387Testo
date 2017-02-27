@@ -6,3 +6,4 @@ applications:
   name: p1542387Testo
   host: p1542387Testo
   disk_quota: 1024M
+  buidpack: https://github.com/cloudfoundary/nodejs-buildpack
